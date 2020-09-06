@@ -38,11 +38,7 @@
 /***********************
  * Defines              *
  ***********************/
-#define LED_PIN 5
-#define POTENTIOMETER_PIN 0
-#define TRANSMITTER_PIN 0
-#define RECEIVER_PIN 1
-#define ADC_CONVERSION_READY 1
+
 /***********************
  * Constants            *
  ***********************/
