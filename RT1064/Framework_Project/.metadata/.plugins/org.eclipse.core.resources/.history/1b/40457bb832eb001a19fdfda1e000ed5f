@@ -1,0 +1,174 @@
+/******************************************************************************
+*. Copyright 2020 Cesar Rodriguez, All Rights Reserved
+*.=============================================================================
+*. Template C Source File
+*.=============================================================================
+*. FILE: main.c
+*.
+*. DESCRIPTION:
+*. This file
+*.
+*. SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" FOR THE PURPOSES OF THE
+*. PROVIDED TRAINING CLASS AND IT IS NOT INTENDED AS PRODUCTION CODE AND WITHOUT
+*. WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION,
+*. ANY WARRANTY OF MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A
+*. PARTICULAR PURPOSE. IN NO EVENT SHALL SALVADOR ALMANZA OR ITS LICENSORS BE LIABLE OR
+*. OBLIGATED UNDER CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH
+*. OF WARRANTY, OR OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES
+*. OR EXPENSES INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT,
+*. PUNITIVE OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF
+*. PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD
+*. PARTIES (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR
+*. COSTS.
+*.
+\*****************************************************************************/
+/***********************
+ * Includes             *
+ ***********************/
+#include "main.h"
+#include "frameworkCommon.h"
+#include "frameworkIncludes.h"
+
+/***********************
+ * Type Definitions     *
+ ***********************/
+
+/***********************
+ * Macros               *
+ ***********************/
+
+/***********************
+ * Defines              *
+ ***********************/
+
+/***********************
+ * Constants            *
+ ***********************/
+
+/***********************
+ * Calibrations         *
+ ***********************/
+
+/***********************
+ * Global Variables     *
+ ***********************/
+
+/***********************
+ * File Scope Variables *
+ ***********************/
+
+/***********************
+ * Function Prototypes  *
+ ***********************/
+
+/***********************
+ * Function Definitions *
+ ***********************/
+void printVoltage(float voltage)
+{
+    char data[] = {"Measured Voltage:"};
+    for (uint8_t i = 0; i < 17; i++)
+    {
+        Uart_Send(APP_UART_NAME, data[i]);
+    }
+    Uart_Send(APP_UART_NAME, (int)(voltage + 48));
+    Uart_Send(APP_UART_NAME, 46);
+    Uart_Send(APP_UART_NAME, ((int)((voltage - (int)voltage) * 10)) + 48);
+    Uart_Send(APP_UART_NAME, ((voltage * 10 - ((int)(voltage * 10))) * 10) + 48);
+}
+/*********************************************************************
+*. Name: main
+*.====================================================================
+*. Description:
+*. C entry point, executes the systems initialization and application
+*.
+\********************************************************************/
+int main(void)
+{
+    States_t          current_State = HW_INIT;
+    Gpio_pinState_t   ledState      = LED_OFF;
+    volatile uint16_t ADC_Value     = 0;
+    volatile float    voltage       = 0;
+
+    /* GPIO configuration of TEST on GPIO_AD_B1_10 (pin L13) */
+        gpio_pin_config_t TEST_config = {
+            .direction = kGPIO_DigitalOutput,
+            .outputLogic = 0U,
+            .interruptMode = kGPIO_NoIntmode
+        };
+        GPIO_PinInit(GPIO1, 16, &TEST_config);
+        IOMUXC_SetPinMux(
+            IOMUXC_GPIO_AD_B1_00_GPIO1_IO16,        /* GPIO_AD_B1_10 is configured as GPIO1_IO26 */
+            0U);
+        GPIO_PinWrite(GPIO1, 16, 0);
+
+    while (true)
+    {
+        switch (current_State)
+        {
+            case HW_INIT:
+                // Initialize basic hardware functionality
+                HWInit();
+                // Initialize GPIOs
+                GPIO_PinWrite(GPIO1, 16, 1);
+                Gpio_InitDefaults(Gpio_Cfg);
+                GPIO_PinWrite(GPIO1, 16, 0);
+                // Turn LED Off
+                Gpio_SetPin(USER_LED_PORT, USER_LED_PIN, LED_OFF);
+                // Disable ADC
+                GPIO_PinWrite(GPIO1, 16, 1);
+                Adc_DisableAdc(APP_ADC_NAME);
+                // Initialize ADC
+                Adc_InitDefaults(Adc_Cfg);
+                // Perform ADC Calibration
+                Adc_CalibrateAdc(APP_ADC_NAME);
+                // Select ADC Channel
+                Adc_SetChannel(APP_ADC_NAME, POT_ADC_CHANNEL);
+                // Enable ADC
+                Adc_EnableAdc(APP_ADC_NAME);
+                GPIO_PinWrite(GPIO1, 16, 0);
+                // Disable Uart
+                GPIO_PinWrite(GPIO1, 16, 1);
+                Uart_DisableUart(APP_UART_NAME);
+                // Configure UART
+                Uart_InitDefaults(Uart_Cfg);
+                // Enable UART
+                Uart_EnableUart(APP_UART_NAME);
+                GPIO_PinWrite(GPIO1, 16, 0);
+                current_State = WAIT;
+                break;
+            case WAIT:
+                if (Uart_Receive(APP_UART_NAME) == 48)
+                {
+                    current_State = MEASURE_VOLTAGE;
+                }
+                break;
+            case MEASURE_VOLTAGE:
+                // Initialize Conversion
+                Adc_StartConversion(APP_ADC_NAME);
+                // Wait for Conversion to be done
+                while (Adc_GetConversionStatus(APP_ADC_NAME) != CONVERSION_READY)
+                {
+                }
+                ADC_Value = Adc_GetResult(APP_ADC_NAME);
+                voltage   = (3.28 * ADC_Value) / ADC_STEPS;
+                printVoltage(voltage);
+                current_State = UPDATE_LED;
+                break;
+            case UPDATE_LED:
+                if (voltage < 2.5)
+                {
+                    ledState = LED_ON;
+                }
+                else
+                {
+                    ledState = LED_OFF;
+                }
+                Gpio_SetPin(USER_LED_PORT, USER_LED_PIN, ledState);
+                current_State = WAIT;
+                break;
+            default:
+                break;
+        }
+    }
+}
