@@ -1,0 +1,87 @@
+/*
+ * Copyright 2017 NXP
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+#include "board.h"
+#include "fsl_gpio.h"
+
+#include "pin_mux.h"
+#include "system_MIMXRT1064.h"
+#include "clock_config.h"
+
+#include "frameworkIncludes.h"
+#include "main.h"
+
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+#define LED_GPIO BOARD_USER_LED_GPIO
+#define LED_GPIO_PIN BOARD_USER_LED_GPIO_PIN
+#define BUTTON_GPIO BOARD_USER_BUTTON_GPIO
+#define BUTTON_GPIO_PIN BOARD_USER_BUTTON_GPIO_PIN
+
+/*******************************************************************************
+ * Prototypes
+ ******************************************************************************/
+
+/*******************************************************************************
+ * Variables
+ ******************************************************************************/
+volatile uint32_t g_systickCounter;
+/* The PIN status */
+volatile bool g_pinSet = false;
+
+/*******************************************************************************
+ * Code
+ ******************************************************************************/
+void SysTick_Handler(void)
+{
+    if (g_systickCounter != 0U)
+    { 
+        g_systickCounter--;
+    }
+}
+
+void SysTick_DelayTicks(uint32_t n)
+{
+    g_systickCounter = n;
+    while(g_systickCounter != 0U)
+    {
+    }
+}
+
+/*!
+ * @brief Main function
+ */
+int main(void)
+{
+    /* Define the init structure for the output LED pin*/
+    gpio_pin_config_t led_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+    /* Define the init structure for the input Button pin*/
+    gpio_pin_config_t button_config = {kGPIO_DigitalInput, 0, kGPIO_NoIntmode};
+
+    /* Board pin init */
+    BOARD_InitPins();
+    BOARD_BootClockRUN();
+    BOARD_InitDebugConsole();
+    /* Update the core clock */
+    SystemCoreClockUpdate();
+    /* Init output LED GPIO. */
+    GPIO_PinInit(LED_GPIO, LED_GPIO_PIN, &led_config);
+    /* Init input Button GPIO. */
+    GPIO_PinInit(BUTTON_GPIO, BUTTON_GPIO_PIN, &button_config);
+    while (1)
+    {
+        if (GPIO_PinRead(BUTTON_GPIO,BUTTON_GPIO_PIN) == 1)
+        {
+            GPIO_PinWrite(LED_GPIO, LED_GPIO_PIN, 0U);
+        }
+        else
+        {
+            GPIO_PinWrite(LED_GPIO, LED_GPIO_PIN, 1U);
+        }
+    }
+}

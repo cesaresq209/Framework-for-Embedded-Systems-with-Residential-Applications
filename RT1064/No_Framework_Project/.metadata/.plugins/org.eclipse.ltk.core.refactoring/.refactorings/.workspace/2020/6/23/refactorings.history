@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;RT1064_Framework_App/source/main - Copy.c&apos;" deleteContents="false" description="Delete resource &apos;RT1064_Framework_App/source/main - Copy.c&apos;" element1="/RT1064_Framework_App/source/main - Copy.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1591217047969"/>
+</session>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 2 resources" deleteContents="false" description="Delete 2 resources" element1="/RT1064_Framework_App/RT1064_Framework_App LinkServer Debug (1).launch" element2="/RT1064_Framework_App/RT1064_Framework_App LinkServer Debug (2).launch" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="2" stamp="1595113146408"/>
+</session>

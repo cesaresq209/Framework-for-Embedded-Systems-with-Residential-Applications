@@ -1,0 +1,266 @@
+/******************************************************************************
+*. Copyright 2020 Cesar Rodriguez, All Rights Reserved
+*.=============================================================================
+*. Template C Source File
+*.=============================================================================
+*. FILE: main.c
+*.
+*. DESCRIPTION:
+*. This file
+*.
+*. SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" FOR THE PURPOSES OF THE
+*. PROVIDED TRAINING CLASS AND IT IS NOT INTENDED AS PRODUCTION CODE AND WITHOUT
+*. WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION,
+*. ANY WARRANTY OF MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A
+*. PARTICULAR PURPOSE. IN NO EVENT SHALL SALVADOR ALMANZA OR ITS LICENSORS BE LIABLE OR
+*. OBLIGATED UNDER CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH
+*. OF WARRANTY, OR OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES
+*. OR EXPENSES INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT,
+*. PUNITIVE OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF
+*. PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD
+*. PARTIES (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR
+*. COSTS.
+*.
+\*****************************************************************************/
+/***********************
+ * Includes             *
+ ***********************/
+#include "main.h"
+#include "fsl_iomuxc.h"
+#include "fsl_lpuart.h"
+/***********************
+ * Type Definitions     *
+ ***********************/
+
+/***********************
+ * Macros               *
+ ***********************/
+
+/***********************
+ * Defines              *
+ ***********************/
+#define CONVERSION_READY 1
+#define LED_PORT GPIO1
+#define LED_PIN 9U
+#define BOARD_DEBUG_UART_CLOCK_SOURCE 80000000UL
+/***********************
+ * Constants            *
+ ***********************/
+
+/***********************
+ * Calibrations         *
+ ***********************/
+
+/***********************
+ * Global Variables     *
+ ***********************/
+
+/***********************
+ * File Scope Variables *
+ ***********************/
+
+/***********************
+ * Function Prototypes  *
+ ***********************/
+
+/***********************
+ * Function Definitions *
+ ***********************/
+void printVoltage(float voltage)
+{
+	uint8_t val[4];
+	uint8_t data[] = {"Measured Voltage:"};
+    for (uint8_t i = 0; i < 17; i++)
+    {
+    	LPUART_WriteBlocking(LPUART1, &data[i],1);
+    }
+
+    val[0] = (uint8_t)(voltage + 48);
+    val[1] = (uint8_t)46;
+    val[2] = (uint8_t)(((voltage - (uint8_t)voltage) * 10)) + 48;
+    val[3] = (uint8_t)((voltage * 10 - ((int)(voltage * 10))) * 10) + 48;
+    LPUART_WriteBlocking(LPUART1,&val,4);
+}
+
+void configureGPIOs(void)
+{
+
+    CLOCK_EnableClock(kCLOCK_Iomuxc);
+
+    //Configure LED Pin
+    gpio_pin_config_t pin_config = {
+        .direction = kGPIO_DigitalOutput,
+        .outputLogic = 0U,
+        .interruptMode = kGPIO_NoIntmode
+    };
+
+    GPIO_PinInit(LED_PORT, LED_PIN, &pin_config);
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_B0_09_GPIO1_IO09,        /* GPIO_AD_B0_09 is configured as GPIO1_IO09 */
+        0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+
+    IOMUXC_GPR->GPR26 = ((IOMUXC_GPR->GPR26 &
+      (~(IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL_MASK))) /* Mask bits to zero which are setting */
+        | IOMUXC_GPR_GPR26_GPIO_MUX1_GPIO_SEL(0x00U) /* GPIO1 and GPIO6 share same IO MUX function, GPIO_MUX1 selects one GPIO function: 0x00U */
+      );
+
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_B0_09_GPIO1_IO09,        /* GPIO_AD_B0_09 PAD functional properties : */
+        0xB0U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                   Drive Strength Field: R0/6
+                                                   Speed Field: medium(100MHz)
+                                                   Open Drain Enable Field: Open Drain Disabled
+                                                   Pull / Keep Enable Field: Pull/Keeper Disabled
+                                                   Pull / Keep Select Field: Keeper
+                                                   Pull Up / Down Config. Field: 100K Ohm Pull Down
+                                                   Hyst. Enable Field: Hysteresis Disabled */
+    // Configure TX Pin
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_B0_12_LPUART1_TX,        /* GPIO_AD_B0_12 is configured as LPUART1_TX */
+        0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_B0_12_LPUART1_TX,        /* GPIO_AD_B0_12 PAD functional properties : */
+        0x10B0U);                               /* Slew Rate Field: Slow Slew Rate
+                                                   Drive Strength Field: R0/6
+                                                   Speed Field: medium(100MHz)
+                                                   Open Drain Enable Field: Open Drain Disabled
+                                                   Pull / Keep Enable Field: Pull/Keeper Enabled
+                                                   Pull / Keep Select Field: Keeper
+                                                   Pull Up / Down Config. Field: 100K Ohm Pull Down
+                                                   Hyst. Enable Field: Hysteresis Disabled */
+    //Configure RX Pin
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_B0_13_LPUART1_RX,        /* GPIO_AD_B0_13 is configured as LPUART1_RX */
+        0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_B0_13_LPUART1_RX,        /* GPIO_AD_B0_13 PAD functional properties : */
+        0x10B0U);                               /* Slew Rate Field: Slow Slew Rate
+                                                   Drive Strength Field: R0/6
+                                                   Speed Field: medium(100MHz)
+                                                   Open Drain Enable Field: Open Drain Disabled
+                                                   Pull / Keep Enable Field: Pull/Keeper Enabled
+                                                   Pull / Keep Select Field: Keeper
+                                                   Pull Up / Down Config. Field: 100K Ohm Pull Down
+                                                   Hyst. Enable Field: Hysteresis Disabled */
+
+    //Configure POT Pin
+
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_B1_10_GPIO1_IO26,        /* GPIO_AD_B1_10 is configured as GPIO1_IO26 */
+        0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+
+    IOMUXC_SetPinConfig(
+        IOMUXC_GPIO_AD_B1_10_GPIO1_IO26,        /* GPIO_AD_B1_10 PAD functional properties : */
+        0xB0U);                                 /* Slew Rate Field: Slow Slew Rate
+                                                   Drive Strength Field: R0/6
+                                                   Speed Field: medium(100MHz)
+                                                   Open Drain Enable Field: Open Drain Disabled
+                                                   Pull / Keep Enable Field: Pull/Keeper Disabled
+                                                   Pull / Keep Select Field: Keeper
+                                                   Pull Up / Down Config. Field: 100K Ohm Pull Down
+                                                   Hyst. Enable Field: Hysteresis Disabled */
+}
+
+void configureADC(void)
+{
+    adc_config_t adcConfig;
+    ADC_GetDefaultConfig(&adcConfig);
+    adcConfig.clockDriver = kADC_ClockDriver4;
+    adcConfig.clockSource = kADC_ClockSourceIPGDiv2;
+    ADC_Init(ADC1, &adcConfig);
+}
+
+void setAdcChannel(uint8_t channel)
+{
+	adc_channel_config_t channelConfig;
+	channelConfig.channelNumber = 15U;
+	channelConfig.enableInterruptOnConversionCompleted = false;
+	ADC_SetChannelConfig(ADC1, 0U, &channelConfig);
+}
+
+void configureUart(void)
+{
+	lpuart_config_t uartConfig;
+	LPUART_GetDefaultConfig(&uartConfig);
+	uartConfig.baudRate_Bps = 9600;
+	uartConfig.enableTx = true;
+	uartConfig.enableRx = true;
+	LPUART_Init(LPUART1, &uartConfig, BOARD_DEBUG_UART_CLOCK_SOURCE);
+}
+
+/*********************************************************************
+*. Name: main
+*.====================================================================
+*. Description:
+*. C entry point, executes the systems initialization and application
+*.
+\********************************************************************/
+int main(void)
+{
+    States_t          current_State = HW_INIT;
+    uint8_t   ledState      = LED_OFF;
+    volatile uint16_t ADC_Value     = 0;
+    volatile float    voltage       = 0;
+    /* GPIO configuration of TEST on GPIO_AD_B1_10 (pin L13) */
+    gpio_pin_config_t TEST_config = {
+        .direction = kGPIO_DigitalOutput,
+        .outputLogic = 0U,
+        .interruptMode = kGPIO_NoIntmode
+    };
+    GPIO_PinInit(GPIO1, 16, &TEST_config);
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_B1_00_GPIO1_IO16,        /* GPIO_AD_B1_10 is configured as GPIO1_IO26 */
+        0U);
+    GPIO_PinWrite(GPIO1, 16, 0);
+    while (true)
+    {
+        switch (current_State)
+        {
+            case HW_INIT:
+                // Initialize basic hardware functionality
+                HWInit();
+                // Initialize GPIOs
+                configureGPIOs();
+                configureADC();
+                ADC_DoAutoCalibration(ADC1);
+                configureUart();
+                current_State = WAIT;
+                GPIO_PinWrite(GPIO1, 16, 1);
+                break;
+            case WAIT:
+                if (LPUART_ReadByte(LPUART1) == 48)
+                {
+                    current_State = MEASURE_VOLTAGE;
+                    GPIO_PinWrite(GPIO1, 16, 0);
+                }
+                break;
+            case MEASURE_VOLTAGE:
+                // Initialize Conversion
+                setAdcChannel(15);
+                // Wait for Conversion to be done
+                while (ADC_GetChannelStatusFlags(ADC1, 0) != CONVERSION_READY)
+                {
+                }
+                ADC_Value = ADC_GetChannelConversionValue(ADC1,0);
+                voltage   = (3.28 * ADC_Value) / ADC_STEPS;
+                printVoltage(voltage);
+                current_State = UPDATE_LED;
+                break;
+            case UPDATE_LED:
+                if (voltage < 2.5)
+                {
+                    ledState = LED_ON;
+                }
+                else
+                {
+                    ledState = LED_OFF;
+                }
+                GPIO_PinWrite(LED_PORT, LED_PIN, ledState);
+                current_State = WAIT;
+                break;
+            default:
+                break;
+        }
+    }
+}

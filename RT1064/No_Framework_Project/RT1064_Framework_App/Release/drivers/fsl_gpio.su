@@ -1,0 +1,7 @@
+fsl_clock.h:973:20:CLOCK_ControlGate	32	static
+fsl_clock.h:990:20:CLOCK_EnableClock	16	static
+fsl_gpio.h:240:20:GPIO_SetPinInterruptConfig	24	static
+fsl_gpio.c:45:17:GPIO_GetInstance	24	static
+fsl_gpio.c:63:6:GPIO_PinInit	24	static
+fsl_gpio.c:88:6:GPIO_PinWrite	24	static
+fsl_gpio.c:101:6:GPIO_PinSetInterruptConfig	32	static

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;SDK_2.7.0_EVK-MIMXRT1064&apos;" deleteContents="false" description="Delete resource &apos;SDK_2.7.0_EVK-MIMXRT1064&apos;" element1="/SDK_2.7.0_EVK-MIMXRT1064" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1585022145977"/>&#x0A;<refactoring comment="Rename resource &apos;evkmimxrt1064_led_blinky&apos; to &apos;RT1064_Framework_App&apos;" description="Rename resource &apos;evkmimxrt1064_led_blinky&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/evkmimxrt1064_led_blinky" name="RT1064_Framework_App" stamp="1585423565705" updateReferences="true"/>
+</session>
