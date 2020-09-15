@@ -13,13 +13,7 @@
 /************************
  * Includes             *
  ************************/
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
-#include "MIMXRT1064.h"
-#include "fsl_adc.h"
-
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
+FWK_ADC_INCLUDES
 
 /************************
  * Public Types         *
@@ -29,11 +23,7 @@
  */
 typedef enum
 {
-    // ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
-    APP_ADC,
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
+    FWK_ADC_ELEMENTS
     ADC_ELEMENTS_MAX
 } Adc_elementsType;
 
@@ -44,30 +34,9 @@ typedef enum
 /************************
  * Public Defines       *
  ************************/
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
+FWK_ADC_CFG_DEFINITIONS
 
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
-
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
-
-// ADC2
-#define APP_ADC_NAME ADC_1
-#define APP_ADC_SAMPLE ADC_DISABLE_SAMPLE
-#define APP_ADC_CLOCK OTHER_CLOCK_FOR_ADC
-#define APP_ADC_JUSTIFICATION ADC_RIGHT_JUSTIFIED
-#define APP_ADC_PRESCALER DIVIDE_ADC_CLOCK_BY_4
-#define APP_ADC_RESOLUTION ADC_12_BIT_RESOLUTION
-#define APP_ADC_REFERENCE ADC_USE_SUPPLY_VOLTAGE_AS_REFERENCE
-
-// Channel definitions
-// ADC ADC2
-#define POT_ADC_CHANNEL ADC_CHANNEL_15
-
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
+FWK_ADC_ELEMENTS_DEFINITIONS
 
 /************************
  * Public Constants     *

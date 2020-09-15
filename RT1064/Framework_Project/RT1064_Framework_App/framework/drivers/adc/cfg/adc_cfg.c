@@ -36,20 +36,7 @@
 /**
  * @brief GPIO initial configuration structures array
  */
-const Adc_cfg_t Adc_Cfg[ADC_ELEMENTS_MAX] = {
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
-{APP_ADC_NAME,
-APP_ADC_SAMPLE,
-APP_ADC_CLOCK,
-APP_ADC_JUSTIFICATION,
-APP_ADC_PRESCALER,
-APP_ADC_RESOLUTION,
-APP_ADC_REFERENCE,
-}
-// ################## Kamino generator v1.0.0: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
-};
+const Adc_cfg_t Adc_Cfg[ADC_ELEMENTS_MAX] = {FWK_ADC_CFG_ARRAY};
 /************************
  * File Scope Variables *
  ************************/
