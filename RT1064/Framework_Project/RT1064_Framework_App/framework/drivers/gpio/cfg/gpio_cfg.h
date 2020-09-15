@@ -13,12 +13,7 @@
 /************************
  * Includes             *
  ************************/
-// ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
-#include "MIMXRT1064.h"
-#include "fsl_gpio.h"
-// ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
+FWK_GPIO_INCLUDES
 
 /************************
  * Public Types         *
@@ -28,15 +23,7 @@
  */
 typedef enum
 {
-    // ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
-USER_BUTTON,
-POT,
-USER_LED,
-RX,
-TX,
-// ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
+    FWK_GPIO_ELEMENTS
     GPIO_ELEMENTS_MAX
 } Gpio_elementsType;
 
@@ -47,66 +34,9 @@ TX,
 /************************
  * Public Defines       *
  ************************/
-// ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
+FWK_GPIO_CFG_DEFINITIONS
 
-// ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
-
-// ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this header and the footer below #######
-// USER_BUTTON
-#define USER_BUTTON_PORT PORT_5
-#define USER_BUTTON_PIN PIN_0
-#define USER_BUTTON_MODE MODE_INPUT
-#define USER_BUTTON_ALT_MODE ALT_MODE_NONE
-#define USER_BUTTON_OUT_TYPE OTYPE_PUSH_PULL
-#define USER_BUTTON_PULL PULL_UP
-#define USER_BUTTON_SPEED SPEED_FAST
-#define USER_BUTTON_INIT_OUT LOW
-
-// POT
-#define POT_PORT PORT_1
-#define POT_PIN PIN_26
-#define POT_MODE MODE_ALTERNATE_FUNCTION
-#define POT_ALT_MODE ALT_MODE_ANALOG
-#define POT_OUT_TYPE OTYPE_PUSH_PULL
-#define POT_PULL PULL_NOT_AVAILABLE
-#define POT_SPEED SPEED_FAST
-#define POT_INIT_OUT LOW
-
-// USER_LED
-#define USER_LED_PORT PORT_1
-#define USER_LED_PIN PIN_9
-#define USER_LED_MODE MODE_OUTPUT
-#define USER_LED_ALT_MODE ALT_MODE_NONE
-#define USER_LED_OUT_TYPE OTYPE_PUSH_PULL
-#define USER_LED_PULL PULL_NOT_AVAILABLE
-#define USER_LED_SPEED SPEED_FAST
-#define USER_LED_INIT_OUT LOW
-
-// UART RX
-#define RX_PORT PORT_1
-#define RX_PIN PIN_13
-#define RX_MODE MODE_ALTERNATE_FUNCTION
-#define RX_ALT_MODE ALT_MODE_UART
-#define RX_OUT_TYPE OTYPE_PUSH_PULL
-#define RX_PULL PULL_NOT_AVAILABLE
-#define RX_SPEED SPEED_FAST
-#define RX_INIT_OUT LOW
-
-// UART TX
-#define TX_PORT PORT_1
-#define TX_PIN PIN_12
-#define TX_MODE MODE_ALTERNATE_FUNCTION
-#define TX_ALT_MODE ALT_MODE_UART
-#define TX_OUT_TYPE OTYPE_PUSH_PULL
-#define TX_PULL PULL_NOT_AVAILABLE
-#define TX_SPEED SPEED_FAST
-#define TX_INIT_OUT LOW
-
-// ################## Kamino generator v1.0.3: Generated code! ################
-// ######## Do NOT modify code between this footer and the header above #######
+FWK_GPIO_ELEMENTS_DEFINITIONS
 
 /************************
  * Public Constants     *

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE xml>
+
+<CodeGeneratorProject>
+	<name>RT1064</name>
+	<ConfigFile>RT1064Conf.xml</ConfigFile>
+	<ucFile>MIMXRT1064.xml</ucFile>
+	<frameworkFolder>Framework_Project/RT1064_Framework_App/framework</frameworkFolder>
+</CodeGeneratorProject>

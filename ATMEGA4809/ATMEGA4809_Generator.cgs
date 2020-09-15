@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE xml>
+
+<CodeGeneratorProject>
+	<name>ATMEGA4809</name>
+	<ConfigFile>ATMEGA4809Conf.xml</ConfigFile>
+	<ucFile>ATMEGA4809.xml</ucFile>
+	<frameworkFolder>Framework_Project/framework</frameworkFolder>
+</CodeGeneratorProject>

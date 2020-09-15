@@ -1,31 +1,26 @@
 /**
- * @file uart_cfg.h
- * @author Cesar Rodriguez
- * @brief UART framework configuration header
+ * @file frameworkIncludes.h
+ * @author Miguel Diaz
+ * @brief Framework main header
+ *
+ * This header includes all framework modules to be used in the project
  */
 
 /************************
  * Guard                *
  ************************/
-#ifndef _UART_CFG_H_
-#define _UART_CFG_H_
+#ifndef _FRAMEWORK_INCLUDES_H_
+#define _FRAMEWORK_INCLUDES_H_
 
 /************************
  * Includes             *
  ************************/
-FWK_UART_INCLUDES
+// Include framework modules depending on what you are using:
+FWK_MODULES_INCLUDES
 
 /************************
  * Public Types         *
  ************************/
-/**
- * @brief GPIO elements
- */
-typedef enum
-{
-    FWK_UART_ELEMENTS
-    UART_ELEMENTS_MAX
-} Uart_elementsType;
 
 /************************
  * Public Macros        *
@@ -34,9 +29,6 @@ typedef enum
 /************************
  * Public Defines       *
  ************************/
-FWK_UART_CFG_DEFINITIONS
-
-FWK_UART_ELEMENTS_DEFINITIONS
 
 /************************
  * Public Constants     *
@@ -54,4 +46,4 @@ FWK_UART_ELEMENTS_DEFINITIONS
  * Public Functions     *
  ************************/
 
-#endif /* _UART_CFG_H_ */
+#endif /* _FRAMEWORK_INCLUDES_H_ */
