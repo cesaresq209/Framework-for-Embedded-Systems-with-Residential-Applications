@@ -28,9 +28,9 @@
 #include "main.h"
 #include "frameworkCommon.h"
 #include "frameworkIncludes.h"
-#include "ComponentDrivers/LED.h"
-#include "ComponentDrivers/POT.h"
-#include "ComponentDrivers/Console.h"
+#include "ComponentDriver/LED.h"
+#include "ComponentDriver/POT.h"
+#include "ComponentDriver/Console.h"
 
 /***********************
  * Type Definitions     *

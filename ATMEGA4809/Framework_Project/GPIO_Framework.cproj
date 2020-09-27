@@ -30,15 +30,15 @@
     <EraseKey />
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.39.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <atStartFilePath>.atmelstart\atmel_start_config.atstart</atStartFilePath>
     <GpdscFilePath>.atmelstart\AtmelStart.gpdsc</GpdscFilePath>
@@ -197,71 +197,75 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.common.Device>-mmcu=atmega4809 -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.331\gcc\dev\atmega4809"</avrgcc.common.Device>
-        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcc.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>DEBUG</Value>
-          </ListValues>
-        </avrgcc.compiler.symbols.DefSymbols>
-        <avrgcc.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>../include</Value>
-            <Value>../utils</Value>
-            <Value>../utils/assembler</Value>
-            <Value>../</Value>
-            <Value>../framework/common</Value>
-            <Value>../examples/include</Value>
-            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.331\include</Value>
-            <Value>../framework/drivers/gpio</Value>
-            <Value>../framework/drivers/gpio/cfg</Value>
-            <Value>../framework/drivers/gpio/inc</Value>
-            <Value>../framework/drivers/gpio/src</Value>
-            <Value>../framework/drivers/adc/cfg</Value>
-            <Value>../framework/drivers/adc/inc</Value>
-            <Value>../framework/drivers/adc/src</Value>
-            <Value>../framework/wrappers/adc</Value>
-            <Value>../framework/wrappers/gpio</Value>
-            <Value>../framework/wrappers</Value>
-            <Value>../Config</Value>
-            <Value>../framework/wrappers/uart</Value>
-            <Value>../framework/drivers/uart/cfg</Value>
-            <Value>../framework/drivers/uart/inc</Value>
-            <Value>../framework/drivers/uart/src</Value>
-          </ListValues>
-        </avrgcc.compiler.directories.IncludePaths>
-        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
-        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
-        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-        <avrgcc.linker.libraries.Libraries>
-          <ListValues>
-            <Value>libm</Value>
-          </ListValues>
-        </avrgcc.linker.libraries.Libraries>
-        <avrgcc.assembler.general.IncludePaths>
-          <ListValues>
-            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.331\include</Value>
-            <Value>../Config</Value>
-            <Value>../examples/include</Value>
-            <Value>../include</Value>
-            <Value>../utils</Value>
-            <Value>../utils/assembler</Value>
-            <Value>../</Value>
-          </ListValues>
-        </avrgcc.assembler.general.IncludePaths>
-        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
-      </AvrGcc>
+  <avrgcc.common.Device>-mmcu=atmega4809 -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.331\gcc\dev\atmega4809"</avrgcc.common.Device>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../include</Value>
+      <Value>../utils</Value>
+      <Value>../utils/assembler</Value>
+      <Value>../</Value>
+      <Value>../framework/common</Value>
+      <Value>../examples/include</Value>
+      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.331\include</Value>
+      <Value>../framework/drivers/gpio</Value>
+      <Value>../framework/drivers/gpio/cfg</Value>
+      <Value>../framework/drivers/gpio/inc</Value>
+      <Value>../framework/drivers/gpio/src</Value>
+      <Value>../framework/drivers/adc/cfg</Value>
+      <Value>../framework/drivers/adc/inc</Value>
+      <Value>../framework/drivers/adc/src</Value>
+      <Value>../framework/wrappers/adc</Value>
+      <Value>../framework/wrappers/gpio</Value>
+      <Value>../framework/wrappers</Value>
+      <Value>../Config</Value>
+      <Value>../framework/wrappers/uart</Value>
+      <Value>../framework/drivers/uart/cfg</Value>
+      <Value>../framework/drivers/uart/inc</Value>
+      <Value>../framework/drivers/uart/src</Value>
+      <Value>../ComponentDriver</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.general.UseVprintfLibrary>True</avrgcc.linker.general.UseVprintfLibrary>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.linker.miscellaneous.LinkerFlags>-lprintf_flt</avrgcc.linker.miscellaneous.LinkerFlags>
+  <avrgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.4.331\include</Value>
+      <Value>../Config</Value>
+      <Value>../examples/include</Value>
+      <Value>../include</Value>
+      <Value>../utils</Value>
+      <Value>../utils/assembler</Value>
+      <Value>../</Value>
+    </ListValues>
+  </avrgcc.assembler.general.IncludePaths>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="ComponentDriver\" />
     <Folder Include="Config\" />
     <Folder Include="doxygen\" />
     <Folder Include="doxygen\generator\" />
@@ -310,6 +314,24 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="atmel_start.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ComponentDriver\Console.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ComponentDriver\Console.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ComponentDriver\LED.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ComponentDriver\LED.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ComponentDriver\POT.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ComponentDriver\POT.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Config\clock_config.h">
