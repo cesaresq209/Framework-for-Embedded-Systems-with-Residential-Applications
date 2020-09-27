@@ -49,9 +49,6 @@ typedef enum
 #define HWInit()           atmel_start_init()
 #define BUTTON_PRESSED     LOW
 #define BUTTON_NOT_PRESSED HIGH
-
-#define LED_ON    LOW
-#define LED_OFF   HIGH
 #define ADC_STEPS 1023
 /***********************
  * Public Defines       *

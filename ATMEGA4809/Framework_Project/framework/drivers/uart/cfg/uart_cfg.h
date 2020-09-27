@@ -13,7 +13,11 @@
 /************************
  * Includes             *
  ************************/
-FWK_UART_INCLUDES
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this header and the footer below #######
+#include "usart_basic.h"
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this footer and the header above #######
 
 /************************
  * Public Types         *
@@ -23,7 +27,11 @@ FWK_UART_INCLUDES
  */
 typedef enum
 {
-    FWK_UART_ELEMENTS
+    // ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this header and the footer below #######
+Console_UART,
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this footer and the header above #######
     UART_ELEMENTS_MAX
 } Uart_elementsType;
 
@@ -34,9 +42,25 @@ typedef enum
 /************************
  * Public Defines       *
  ************************/
-FWK_UART_CFG_DEFINITIONS
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this header and the footer below #######
 
-FWK_UART_ELEMENTS_DEFINITIONS
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this footer and the header above #######
+
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this header and the footer below #######
+// Console_UART
+#define Console_UART_NAME UART1
+#define Console_UART_CLOCK UART_NOT_SUPPORTED
+#define Console_UART_PRESCALER UART_NOT_SUPPORTED
+#define Console_UART_BAUD_RATE 9600
+#define Console_UART_DATA_BITS UART_8_DATA_BITS
+#define Console_UART_STOP_BITS UART_1_STOP_BIT
+#define Console_UART_PARITY UART_NO_PARITY
+
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this footer and the header above #######
 
 /************************
  * Public Constants     *

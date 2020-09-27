@@ -36,7 +36,20 @@
 /**
  * @brief GPIO initial configuration structures array
  */
-const Uart_cfg_t Uart_Cfg[UART_ELEMENTS_MAX] = {FWK_UART_CFG_ARRAY};
+const Uart_cfg_t Uart_Cfg[UART_ELEMENTS_MAX] = {
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this header and the footer below #######
+{Console_UART_NAME,
+Console_UART_CLOCK,
+Console_UART_PRESCALER,
+Console_UART_BAUD_RATE,
+Console_UART_DATA_BITS,
+Console_UART_STOP_BITS,
+Console_UART_PARITY,
+}
+// ################## Kamino generator v1.2.5: Generated code! ################
+// ######## Do NOT modify code between this footer and the header above #######
+};
 /************************
  * File Scope Variables *
  ************************/
