@@ -38,10 +38,6 @@ void initPOT()
 	  adcConfigStrcut.resolution = kADC_Resolution10Bit;				/* 10 Bit resolution */
 	  ADC_Init(ADC_BASE, &adcConfigStrcut);
 
-	    adc_sample_period_mode_t samplePeriodMode; /*!< Select the sample period in long sample mode or short mode. */
-	    adc_clock_source_t clockSource; /*!< Select the input clock source to generate the internal clock ADCK. */
-	    adc_clock_driver_t clockDriver; /*!< Select the divide ratio used by the ADC to generate the internal clock ADCK. */
-	    adc_resolution_t resolution;    /*!< Select the ADC resolution mode. */
 }
 
 uint32_t getPotValue()
