@@ -28,6 +28,10 @@
 #include "main.h"
 #include "fsl_iomuxc.h"
 #include "fsl_lpuart.h"
+#include "LED.h"
+#include "POT.h"
+#include "Console.h"
+#include <stdio.h>
 /***********************
  * Type Definitions     *
  ***********************/
@@ -35,7 +39,7 @@
 /***********************
  * Macros               *
  ***********************/
-
+#define UART_READ() consoleReadChar()
 /***********************
  * Defines              *
  ***********************/
@@ -65,9 +69,10 @@
  ***********************/
 void printVoltage(float voltage)
 {
-
+	char voltageString[50];
+	sprintf(voltageString,"Measured Voltage: %.2f V\n",voltage);
+	consoleSendString(voltageString);
 }
-
 /*********************************************************************
 *. Name: main
 *.====================================================================
@@ -78,7 +83,6 @@ void printVoltage(float voltage)
 int main(void)
 {
     States_t  current_State = HW_INIT;
-    uint8_t   ledState      = LED_OFF;
     volatile uint16_t ADC_Value     = 0;
     volatile float    voltage       = 0;
     while (true)
@@ -90,7 +94,10 @@ int main(void)
 				Initialize basic hardware functionality, GPIO,
 				UART and ADC
 				*/
-                HWInit();
+                HWInit()
+				initLED();
+				initPOT();
+				consoleInit();
                 current_State = WAIT;
                 break;
             case WAIT:
@@ -98,7 +105,7 @@ int main(void)
 				Perform UART Read, if read value is equal to
 				0 (48), change state to MEASURE_VOLTAGE
 				*/
-                //if (UART_READ == 48)
+                if (UART_READ() == 48)
                 {
                     current_State = MEASURE_VOLTAGE;
                 }
@@ -107,6 +114,9 @@ int main(void)
 			    /*
 				Measure voltage and print the result through UART
 				*/
+				ADC_Value = getPotValue();
+				voltage = (ADC_Value*3.3)/1024;
+				printVoltage(voltage);
                 current_State = UPDATE_LED;
                 break;
             case UPDATE_LED:
@@ -115,6 +125,14 @@ int main(void)
 				-ON if measured voltage <2.5 V
 				-Off if measured voltage >=2.5V
 				*/
+				if(voltage > 2.5)
+				{
+					setLED(LED_ON);
+				}
+				else
+				{
+					setLED(LED_OFF);
+				}
                 current_State = WAIT;
                 break;
             default:
