@@ -61,7 +61,7 @@ void Adc_InitDefaults(const Adc_cfg_t* cfgPtr)
             AdcWrapper_SetClockSource(cfgPtr[adcNum].ID, cfgPtr[adcNum].Clock);
             AdcWrapper_SetJustification(cfgPtr[adcNum].ID, cfgPtr[adcNum].Justification);
             AdcWrapper_SetPrescaler(cfgPtr[adcNum].ID, cfgPtr[adcNum].Prescaler);
-            AdcWrapper_SetResolution(cfgPtr[adcNum].ID, cfgPtr[adcNum].Prescaler);
+            AdcWrapper_SetResolution(cfgPtr[adcNum].ID, cfgPtr[adcNum].Resolution);
             AdcWrapper_SetVoltageReference(cfgPtr[adcNum].ID, cfgPtr[adcNum].Reference);
         }
     }
