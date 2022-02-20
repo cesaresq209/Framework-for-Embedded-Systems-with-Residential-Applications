@@ -18,7 +18,7 @@ FWK_COMMON_INCLUDES
 /************************
  * Public Macros        *
  ************************/
-#define FRAMEWORK_VERSION_MAJOR 0
+#define FRAMEWORK_VERSION_MAJOR 1
 #define FRAMEWORK_VERSION_MINOR 1
 #define FRAMEWORK_VERSION_PATCH 0
 
